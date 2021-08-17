@@ -1,0 +1,32 @@
+{% extends 'carga/plantilla.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+	<!--muestra por pedidos-->
+	<main class="container-fluid">
+		<div class="row">
+			<article class="col-12  tarjeta1">
+				<h1>Ultimos pedidos:</h1>
+				{% if ultimasop %}
+				{% for orden in ultimasop %}
+					<p><a class="light bg-light col-2" href= "{% url 'detalleop' pk=orden.opid %}">Pedido: {{ orden.fecha }} {{ orden.cliente }} N° {{orden.pedido.npedido1}} | {{ orden.pedido.npedido2 }} </a></p>
+				{% endfor %}
+				{% else %}
+				<h2>Aun no hay pedidos cargados</h2>
+				{% endif %}
+		</div>
+	</main>
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+	<!-- Copyright -->
+	<div class="footer-copyright text-center py-3">© 2020 Copyright:
+	  <a href="#"> Gabriel Rouco</a>
+	</div>
+	<!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
+
+{% endblock %}	

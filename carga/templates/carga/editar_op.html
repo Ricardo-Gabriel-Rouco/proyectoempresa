@@ -1,0 +1,45 @@
+{% extends 'carga/plantilla.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<!--muestra por pedidos-->
+	<main class="container-fluid">
+		<div class="row">
+			<article class="col-12 col-sm-6 col-md-4 tarjeta1">
+				<h1>Pedido: </h1>
+				<form class="col-xs-12" action="{% url 'editop' pk=op.opid %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+					{{ form.as_p }}
+				<input type="submit" value="GUARDAR">
+			</article>
+			<article class="col-12 col-sm-6 col-md-4 tarjeta2">
+				<h1>Facturacion:</h1>
+				<p>N° Pedido (1):</p>
+				<p><a>N° Factura 1 {{ op.pedido.nfactura1 }}</a></p>
+				<p>N° Recibo (1): {{  op.pedido.nrecibo1 }}</p>
+				<p>N° Pedido (2): {{  op.pedido.npedido2 }}</p>
+				<p><a>N° Factura 2: {{  op.pedido.nfactura2 }}</a></p>
+				<p>N° Recibo (2): {{  op.pedido.nrecibo2 }}</p>
+			</article>
+			<article class="col-12 col-sm-6 col-md-4 tarjeta3">
+				<h1>Remitos:</h1>
+				<p>Fecha: {{ op.fecharem1 }}</p>
+				<p>N° Remito: {{ op.nrem1 }}(1)</p>
+				<p><a class="light bg-dark col-2" href="#">Remito 1</a></p>
+				<p>Fecha: {{ op.fecharem2 }} </p>
+				<p>N° Remito (2): {{ op.nrem2 }}</p>
+				<p><a class="light bg-dark col-2" href="#">Remito 2</a></p>
+			</article>			
+		</div>
+	</main>	
+{% endblock %}	
+{% block scripts %}
+<script src="{% static 'carga/js/jquery-ui.js' %}" ></script>
+	<script>
+		$( function() {
+			$( "#id_fecha" ).datepicker();
+		} );
+	</script>
+	<script>
+		$("#id_archivoop").addClass('dragndrop');
+	</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'carga/plantilla.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+	<div class="container-fluid tarjeta2">
+		<div class="container col-md-2 " >
+			<h1>Bienvenido</h1>
+		</div>
+	</div>
+	<main class="container-fluid tarjeta1">
+		<div id="formulario_pedido" class="row">
+			<div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+				<h2>Iniciar Sesion</h2>
+				</hr>
+				<form class="col-xs-12" action="{% url 'login' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+				<div class="form-group">
+					<label>Nombre de Usuario</label>
+					<input type="text" class="form-control" placeholder="Nombre de usuario" name="username">
+				</div>
+				<div class="form-group">
+					<label>Contraseña</label>
+					<input type="password" class="form-control" placeholder="Ingrese contraseña" name="password">
+				</div>
+				<input type="submit" value="Iniciar Sesion">
+				</form>
+			</div>
+		</div>
+	</main>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'carga/js/jquery-ui.js' %}" ></script>
+<script>
+	$("#op.fecha").datepicker([inline, true]);
+</script>
+{% endblock %}

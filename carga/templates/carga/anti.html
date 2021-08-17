@@ -1,0 +1,24 @@
+{% extends 'carga/plantilla.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+	<!--muestra por pedidos-->
+	<main class="container-fluid">
+		<div class="row">
+			<article class="col-12  tarjeta1">
+				<h1>Ultimos pedidos:</h1>
+				{% if op_list %}
+				{% for orden in op_list %}
+					<p><a class="light bg-light col-2" href= "{% url 'detalleop' pk=orden.opid %}">Pedido: {{ orden.opid }} {{ orden.fecha }} {{ orden.cliente }}  </a></p>
+				{% endfor %}
+				{% else %}
+				<h2>Aun no hay pedidos Anticipados</h2>
+				{% endif %}
+		</div>
+	</main>
+	<footer>
+		Diseñado por ®Gabriel Rouco
+	</footer>
+
+{% endblock %}	

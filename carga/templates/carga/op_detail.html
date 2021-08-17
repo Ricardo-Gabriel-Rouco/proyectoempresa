@@ -1,0 +1,71 @@
+{% extends 'carga/plantilla.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<!--muestra por pedidos-->
+	<main class="container-fluid">
+		<div class="row">
+			<article class="col-12 col-sm-6 col-md-4 tarjeta1">
+				<h1>Pedido: </h1>
+				<p>Fecha: {{ op.fecha }}</p>
+				<p>Cliente: {{ op.cliente }}</p>
+				<p>Tipo OP: {{ op.tipoop }}</p>
+				<p>% Facturado: {{ op.fact }}</p>
+				<p>Condicion de pago: {{ op.condicion }}</p>
+				<p>Despacho: {{ op.despacho }}</p>
+				<p>Vendedor: {{ op.vendedor }}</p>
+				{% if op.observaciones %}
+					<p>Observaciones: {{ op.observaciones }}</p>
+				{% endif %}
+				<p>estado: {{ op.estadoop }}</p>
+				<p>Deuda: {{ op.deudaop }} </p>
+				{% load static %}
+				{% if op.archivoop %}
+					<p><a class="light bg-dark col-2" href="{{ op.archivoop.url }}" download="">Archivo OP</a></p>
+				{% else %}
+					<p>No hay archivo</p>
+				{% endif %}
+				{% if perms.carga.edit_op %}
+					<p><a class="light bg-dark col-2" href="{% url 'editop' pk=op.opid %}">Editar Pedido</a></p>
+				{% endif %}
+			</article>
+			<article class="col-12 col-sm-6 col-md-4 tarjeta2">
+				<h1>Facturacion:</h1>
+				<p>N° Proforma 1: {{ op.pedido.proforma1 }}</p>
+				<p>N° Pedido (1): {{ op.pedido.npedido1 }}</p>
+				<p><a>N° Factura 1 {{ op.pedido.nfactura1 }}</a></p>
+				<p>N° Recibo (1): {{  op.pedido.nrecibo1 }}</p>
+				<p>N° Proforma 2: {{ op.pedido.proforma2 }}</p>
+				<p>N° Pedido (2): {{  op.pedido.npedido2 }}</p>
+				<p><a>N° Factura 2: {{  op.pedido.nfactura2 }}</a></p>
+				<p>N° Recibo (2): {{  op.pedido.nrecibo2 }}</p>
+				{% if perms.carga.edit_pedido %}
+					<p><a class="light bg-dark col-2" href="{% url 'editarpedido' pk=op.pedido.op_id %}">Editar Pedido</a></p>
+				{% endif %}
+			</article>
+			<article class="col-12 col-sm-6 col-md-4 tarjeta3">
+				<h1>Remitos:</h1>
+				<p>Fecha: {{ op.pedido.remito.fecharem1 }}</p>
+				<p>N° Remito (1): {{ op.pedido.remito.nrem1 }}</p>
+				{% if op.pedido.remito.rem1 %}
+					<p><a class="light bg-dark col-2" href="{{ op.pedido.remito.rem1 }}" download="">Remito 1</a></p>
+				{% else %}
+					<p>No hay archivo</p>
+				{% endif %}
+				<p>Fecha: {{ op.pedido.remito.fecharem2 }} </p>
+				<p>N° Remito (2): {{ op.pedido.remito.nrem2 }}</p>
+				{% if op.pedido.remito.rem2 %}
+					<p><a class="light bg-dark col-2" href="{{ op.pedido.remito.rem2 }}" download="">Remito 1</a></p>
+				{% else %}
+					<p>No hay archivo</p>
+				{% endif %}
+				{% if perms.carga.edit_remito %}
+					<p><a class="light bg-dark col-2" href="{% url 'editarremito' pk=op.pedido.remito.pedido_id %}">Editar Pedido</a></p>
+				{% endif %}
+			</article>
+			
+		</div>
+	</main>	
+
+
+{% endblock %}	

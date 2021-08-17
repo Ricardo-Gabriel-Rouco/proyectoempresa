@@ -1,0 +1,95 @@
+{% extends 'carga/plantilla.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<!--muestra por pedidos-->
+	<main class="container-fluid">
+		<div class="row">
+			<article class="col-12 col-sm-6 col-md-4 tarjeta1">
+				<h1>Pedido: </h1>
+				<p>Fecha: {{ remito.pedido.op.fecha }}</p>
+				<p>Cliente: {{ remito.pedido.op.cliente }}</p>
+				<p>Tipo OP: {{ remito.pedido.op.tipoop }}</p>
+				<p>% Facturado: {{ remito.pedido.op.fact }}</p>
+				<p>Condicion de pago: {{ remito.pedido.op.condicion }}</p>
+				<p>Despacho: {{ remito.pedido.op.despacho }}</p>
+				<p>Vendedor: {{ remito.pedido.op.vendedor }}</p>
+				{% if remito.pedido.op.archivoop %}
+					<p><a class="light bg-dark col-2" href="{{ remito.pedido.op.archivoop.url }}" download="">Archivo OP</a></p>
+				{% else %}
+					<p>No hay archivo</p>
+				{% endif %}
+			</article>
+			<article class="col-12 col-sm-6 col-md-4 tarjeta2">
+				<h1>Facturacion:</h1>
+				<p>N° Proforma (1): {{ remito.pedido.proforma1 }}</p>
+				<p>N° Pedido (1): {{ remito.pedido.npedido1 }}</p>
+				<p><a>N° Factura 1 {{ remito.pedido.nfactura1 }}</a></p>
+				<p>N° Recibo (1): {{  remito.pedido.nrecibo1 }}</p>
+				<p>N° Proforma (2): {{ remito.pedido.proforma2 }}</p>
+				<p>N° Pedido (2): {{  remito.pedido.npedido2 }}</p>
+				<p><a>N° Factura 2: {{  remito.pedido.nfactura2 }}</a></p>
+				<p>N° Recibo (2): {{  remito.pedido.nrecibo2 }}</p>
+				
+			</article>
+
+
+			<article class="col-12 col-sm-6 col-md-4 tarjeta2">
+				<h1>Remito:</h1>
+				<form class="col-xs-12" action="{% url 'editarremito' pk=remito.pedido_id %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+				{{ form.as_p }}
+				<input type="submit" value="GUARDAR">
+			</article>
+		</div>
+	</main>	
+{% endblock %}	
+{% block scripts %}
+<script src="{% static 'carga/js/jquery-ui.js' %}" ></script>
+<script>
+	$.datepicker.regional['es'] = {
+	closeText: 'Cerrar',
+	prevText: '< Ant',
+	nextText: 'Sig >',
+	currentText: 'Hoy',
+	monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+	monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+	dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+	dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+	dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+	weekHeader: 'Sm',
+	dateFormat: 'dd/mm/yy',
+	firstDay: 1,
+	isRTL: false,
+	showMonthAfterYear: false,
+	yearSuffix: ''
+	};
+	$.datepicker.setDefaults($.datepicker.regional['es']);
+   $(function () {
+   $("#id_fecharem1").datepicker();
+   });
+   </script>
+<script src="{% static 'carga/js/jquery-ui.js' %}" ></script>
+<script>
+	$.datepicker.regional['es'] = {
+	closeText: 'Cerrar',
+	prevText: '< Ant',
+	nextText: 'Sig >',
+	currentText: 'Hoy',
+	monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+	monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+	dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+	dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+	dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+	weekHeader: 'Sm',
+	dateFormat: 'dd/mm/yy',
+	firstDay: 1,
+	isRTL: false,
+	showMonthAfterYear: false,
+	yearSuffix: ''
+	};
+	$.datepicker.setDefaults($.datepicker.regional['es']);
+   $(function () {
+   $("#id_fecharem2").datepicker();
+   });
+   </script>
+{% endblock %}

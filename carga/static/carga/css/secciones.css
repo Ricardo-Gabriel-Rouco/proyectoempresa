@@ -1,0 +1,30 @@
+.p {
+  color: #35a7ff;
+  font-size: 30px;
+}
+
+.tarjeta1 {
+  background-color: #35a7ff;
+}
+
+.tarjeta2 {
+  background-color: #1c9cff;
+}
+
+.tarjeta3 {
+  background-color: #0291ff;
+}
+
+.linksmios {
+  text-decoration: none;
+  width: 200px;
+}
+
+.menuchingon {
+  background-color: #cbcbce;
+}
+
+#id_observaciones{
+  max-width: 200px !important;
+  max-height: 200px !important;
+}

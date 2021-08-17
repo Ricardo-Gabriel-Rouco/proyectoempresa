@@ -1,0 +1,50 @@
+{% extends 'carga/plantilla.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<!--muestra por pedidos-->
+	<main class="container-fluid">
+		<div class="row">
+			<article class="col-12 col-sm-6 col-md-4 tarjeta1">
+				<h1>Pedido: </h1>
+				<p>Fecha: {{pedido.op.fecha }}</p>
+				<p>Cliente: {{ pedido.op.cliente }}</p>
+				<p>Tipo OP: {{ pedido.op.tipoop }}</p>
+				<p>% Facturado: {{ pedido.op.fact }}</p>
+				<p>Condicion de pago: {{ pedido.op.condicion }}</p>
+				<p>Despacho: {{ pedido.op.despacho }}</p>
+				<p>Vendedor: {{ pedido.op.vendedor }}</p>
+				{% if op.archivoop %}
+					<p><a class="light bg-dark col-2" href="{{ pedido.op.archivoop.url }}" download="">Archivo OP</a></p>
+				{% else %}
+					<p>No hay archivo</p>
+				{% endif %}
+			</article>
+			<article class="col-12 col-sm-6 col-md-4 tarjeta2">
+				<h1>Facturacion: </h1>
+				<form class="col-xs-12" action="{% url 'editarpedido' pk=pedido.op_id %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+				{{ form.as_p }}
+				<input type="submit" value="GUARDAR">
+			</article>
+			<article class="col-12 col-sm-6 col-md-4 tarjeta3">
+				<h1>Remitos:</h1>
+				<p>Fecha: {{ pedido.remito.fecharem1 }}</p>
+				<p>N° Remito (1): {{ pedido.remito.nrem1 }}</p>
+				{% if pedido.remito.rem1 %}
+				<p><a class="light bg-dark col-2" href="{{ pedido.remito.rem1 }}" download="">Remito 1</a></p>
+			{% else %}
+				<p>No hay archivo</p>
+			{% endif %}
+				<p>Fecha: {{ pedido.remito.fecharem2 }} </p>
+				<p>N° Remito (2): {{ pedido.remito.nrem2 }}</p>
+				{% if pedido.remito.rem2 %}
+					<p><a class="light bg-dark col-2" href="{{ pedido.remito.rem2 }}" download="">Remito 2</a></p>
+				{% else %}
+					<p>No hay archivo</p>
+				{% endif %}
+			</article>
+		</div>
+	</main>	
+
+
+{% endblock %}	
