@@ -34,8 +34,14 @@
 {% endblock %}	
 {% block scripts %}
 <script src="{% static 'carga/js/jquery-ui.js' %}" ></script>
-	<script>
-		$( function() {
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{% static 'carga/js/jquery-ui.js' %}" ></script>
+
+<script>
+	 $('#id_cliente').select2({
+		 placeholder: 'Elija cliente'
+	 });
+	$( function() {
 			$( "#id_fecha" ).datepicker();
 		} );
 	</script>

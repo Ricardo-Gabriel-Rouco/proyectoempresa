@@ -3,12 +3,21 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Op, Pedido, Remito
-from .forms import CargaOp, CargarPedido, EditarPedido, EditarRemito, EditarOp
+from .models import Clientes, Op, Pedido, Remito
+from .forms import CargaOp, CargarPedido, EditarPedido, EditarRemito, EditarOp, NuevoCLi
 # Create your views here.
 
 def index(request):
-    ultimasop = Op.objects.all().order_by('-fecha')
+    busqueda = request.GET.get("buscar")
+    ultimasop = Op.objects.filter(estadoop__contains='OK', deudaop__contains='OK').order_by('-fecha')
+    
+    if busqueda:
+        ultimasop = Op.objects.filter(
+            Q(fecha__icontains = busqueda) |
+            Q(vendedor__icontains = busqueda) |
+            Q(cliente__razsoc__icontains = busqueda) 
+        ).distinct()
+    
     return render(request, 'carga/index.html', context={'ultimasop':ultimasop})
 
 #informe proformas dudosas
@@ -73,4 +82,10 @@ class RemitoUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Remito
     form_class = EditarRemito
     template_name = 'carga/editar_remito.html'
+    success_url = reverse_lazy('index')
+
+class ClienteCrear(LoginRequiredMixin, generic.CreateView):
+    model = Clientes
+    form_class = NuevoCLi
+    template_name = 'carga/cliente.html'
     success_url = reverse_lazy('index')

@@ -1,8 +1,27 @@
+from typing import ClassVar
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.fields import BigAutoField, CharField
 
 # Create your models here.
+
+#tabla clientes
+class Clientes(models.Model):
+    codcli = models.IntegerField('Codigo Cliente',primary_key=True)
+    razsoc = models.CharField('Razon Social', max_length=50)
+    email = models.CharField('E-mail', max_length=100)
+
+    def __str__(self):
+        return self.razsoc
+
+
+class Vendedores(models.Model):
+    codvend = models.IntegerField('Codigo Vendedor', primary_key=True)
+    nomvend = models.CharField('Nombre Vendedor', max_length=50)
+
+    def __str__(self):
+        return self.nomvend
+
 
 #Tabla OP
 class Op(models.Model):
@@ -55,12 +74,12 @@ class Op(models.Model):
     
     opid = models.BigAutoField(primary_key=True)
     fecha = models.DateField('Fecha Pedido')
-    cliente = models.CharField(max_length=50, null=True)
+    cliente = models.ForeignKey(Clientes, on_delete=models.PROTECT)
     tipoop = models.CharField('Tipo OP', max_length=10, choices=TIPO_OP)
     fact = models.CharField('Facturacion %', max_length=5, choices=TIPO_FAC, default='100%')
     condicion = models.CharField(max_length=20, choices=PAGO_OP, default='Anticipado')
     despacho = models.CharField(max_length=20, choices=DESPACHO)
-    vendedor = models.CharField(max_length=20)
+    vendedor = models.ForeignKey(Vendedores,on_delete=models.PROTECT)
     observaciones = models.TextField('Observaciones', null=True, blank=True, default=' ')
     estadoop = models.CharField('Estado OP', max_length=4, choices=ESTADO, default='DUDA')
     deudaop = models.CharField('Deuda', max_length=4, choices=ESTADO, default='DUDA')
@@ -90,9 +109,3 @@ class Remito(models.Model):
     fecharem2 = models.DateField('Fecha remito 2', blank=True, null=True, default='2021-01-01')
     nrem2 = models.IntegerField('N° Remito 2', blank=True, null=True, default='0')
     rem2 = models.FileField('Remito 2', upload_to='remito2', null=True, blank=True)
-
-#tabla clientes
-class Cliente(models.Model):
-    codcli = BigAutoField(primary_key=True)
-    razsoc = CharField(max_length=50)
-    email = CharField(max_length=100)

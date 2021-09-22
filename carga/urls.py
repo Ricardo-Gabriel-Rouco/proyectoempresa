@@ -1,6 +1,6 @@
 from django.urls import path, include
 from carga import views
-from carga.views import OpCreate, OpUpdate, PedidoCreate, PedidoDetailView, PedidoUpdate, ProformasListView, RemitoUpdate, AnticipadoListView, ContraListView
+from carga.views import OpCreate, OpUpdate, PedidoCreate, PedidoDetailView, PedidoUpdate, ProformasListView, RemitoUpdate, AnticipadoListView, ContraListView, ClienteCrear
 
 urlpatterns = [ 
     path('', views.index, name='index'),
@@ -13,6 +13,7 @@ urlpatterns = [
     path('dudaproforma/', ProformasListView.as_view(), name='proformapend' ),
     path('anticipado/', AnticipadoListView.as_view(), name='anticipados' ),
     path('contraentr/', ContraListView.as_view(), name='contras' ),
+    path('cliente/', ClienteCrear.as_view(), name='cliente' ),
 ]
 
 urlpatterns += [

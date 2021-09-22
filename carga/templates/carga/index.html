@@ -10,7 +10,7 @@
 				<h1>Ultimos pedidos:</h1>
 				{% if ultimasop %}
 				{% for orden in ultimasop %}
-					<p><a class="light bg-light col-2" href= "{% url 'detalleop' pk=orden.opid %}">Pedido: {{ orden.fecha }} {{ orden.cliente }} N° {{orden.pedido.npedido1}} | {{ orden.pedido.npedido2 }} </a></p>
+					<p><a class="light bg-light col-2" href= "{% url 'detalleop' pk=orden.opid %}">{{ orden.fecha }} {{ orden.cliente }} Proforma N° {{ orden.pedido.proforma1 }} | {{ orden.pedido.proforma2 }} | Pedido N° {{orden.pedido.npedido1}} | {{ orden.pedido.npedido2 }} </a></p>
 				{% endfor %}
 				{% else %}
 				<h2>Aun no hay pedidos cargados</h2>
@@ -21,7 +21,7 @@
 <footer class="page-footer font-small blue">
 
 	<!-- Copyright -->
-	<div class="footer-copyright text-center py-3">© 2020 Copyright:
+	<div class="footer-copyright text-center py-3">© 2021 Copyright:
 	  <a href="#"> Gabriel Rouco</a>
 	</div>
 	<!-- Copyright -->

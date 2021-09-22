@@ -1,7 +1,8 @@
 from django import forms
+from django.db import models
 from django.db.models import fields
 from django.forms import widgets
-from .models import Op, Pedido, Remito
+from .models import Clientes, Op, Pedido, Remito
 
 class CargaOp(forms.ModelForm):
     observaciones = forms.CharField(widget=forms.Textarea(attrs={'cols': 20, 'rows': 1}), required=False)
@@ -87,4 +88,15 @@ class EditarRemito(forms.ModelForm):
             'fecharem2',
             'nrem2',
             'rem2',
+        ]
+
+class NuevoCLi(forms.ModelForm):
+    email = forms.CharField(required=False)
+    class Meta:
+        model = Clientes
+
+        fields = [
+            'codcli',
+            'razsoc',
+            'email',
         ]
